@@ -1,0 +1,23 @@
+control键和caps_lock 切换
+[url:https://blog.csdn.net/u014717036/article/details/57082204]
+创建自己的映射表并且把它储存在你的home目录下
+> xmodmap -pke > ~/.Xmodmap
+
+将CapsLock映射成Control, Shift+CapsLock映射成CapsLock
+在 ~/.Xmodmap文件最后添加下面几句：
+
+clear lock
+clear control
+add control = Caps_Lock Control_L Control_R
+keycode 66 = Control_L Caps_Lock NoSymbol NoSymbol
+
+测试改动是否生效
+> xmodmap ~/.Xmodmap
+
+要在启动Xorg时激活你自己的映射表
+在~/.xinitrc文件末尾添加下面内容
+
+if [ -f $HOME/.Xmodmap ]; then
+    /usr/bin/xmodmap $HOME/.Xmodmap
+fi
+

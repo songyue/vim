@@ -63,7 +63,7 @@ endif
 
 "   ```vim
    set nocompatible              " 去除VI一致性,必须
-   filetype off                  " 必须
+   filetype on                  " 必须
 
    " 设置包括vundle和初始化相关的runtime path
    set rtp+=~/.vim/bundle/Vundle.vim
@@ -119,3 +119,80 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 map <C-h> :sp<CR>
 " 禁止生成临时文件
 set nobackup
+" 自动刷新
+set autoread
+" 自动保存
+set autowrite
+" 空格替换tab 
+set expandtab
+" 设置缩进
+set tabstop=4
+set softtabstop=4
+" 自动缩进长度为4个空格 
+set shiftwidth=4
+" 显示行号
+set nu
+" 高亮当天行
+set cul
+set cuc
+"color desert     " 设置背景主题  
+color ron     " 设置背景主题  
+"color torte     " 设置背景主题  
+"set guifont=Courier_New:h10:cANSI   " 设置字体  
+"autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
+autocmd InsertEnter * se cul    " 用浅色高亮当前行  
+set ruler           " 显示标尺  
+set showcmd         " 输入的命令显示出来，看的清楚些  
+"set whichwrap+=<,>,h,l   " 允许backspace和光标键跨越行边界(不建议)  
+set scrolloff=3     " 光标移动到buffer的顶部和底部时保持3行距离  
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容  
+set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)  
+"set foldenable      " 允许折叠  
+""set foldmethod=manual   " 手动折叠  
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"新建.c,.h,.sh,.java文件，自动插入文件头 
+autocmd BufNewFile *.php,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()" 
+""定义函数SetTitle，自动插入文件头 
+func SetTitle() 
+    "如果文件类型为.sh文件 
+    if &filetype == 'sh' 
+        call setline(1,"\#########################################################################") 
+        call append(line("."), "\# File Name: ".expand("%")) 
+        call append(line(".")+1, "\# Author: songyue") 
+        call append(line(".")+2, "\# mail: songyue118@gmail.com") 
+        call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+        call append(line(".")+4, "\#########################################################################") 
+        call append(line(".")+5, "\#!/bin/bash") 
+     endif
+     if &filetype == 'php' 
+        call append(line("*"), "/**") 
+        call append(line("*")+1, " * File Name: ".expand("%")) 
+        call append(line("*")+2, " * Author: songyue") 
+        call append(line("*")+3, " * mail: songyue118@gmail.com") 
+        call append(line("*")+4, " * Created Time: ".strftime("%c")) 
+        call append(line("*")+5, " */") 
+    else 
+        call setline(1, "/*************************************************************************") 
+        call append(line("."), "    > File Name: ".expand("%")) 
+        call append(line(".")+1, "    > Author: songyue") 
+        call append(line(".")+2, "    > Mail: songyue@gmail.com") 
+        call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
+        call append(line(".")+4, " ************************************************************************/") 
+        call append(line(".")+5, "")
+    endif
+    if &filetype == 'cpp'
+        call append(line(".")+6, "#include<iostream>")
+        call append(line(".")+7, "using namespace std;")
+        call append(line(".")+8, "")
+    endif
+    if &filetype == 'c'
+        call append(line(".")+6, "#include<stdio.h>")
+        call append(line(".")+7, "")
+    endif
+    "新建文件后，自动定位到文件末尾
+    autocmd BufNewFile * normal G
+endfunc 
