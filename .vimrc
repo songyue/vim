@@ -91,9 +91,11 @@ endif
    Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
    " 安装L9，如果已经安装过这个插件，可利用以下格式避免命名冲突
    "Plugin 'ascenator/L9', {'name': 'newL9'}
-
    Plugin 'scrooloose/nerdtree'
    Plugin 'Xuyuanp/nerdtree-git-plugin'
+   Plugin 'nerdtree-ack'
+   Plugin 'terryma/vim-multiple-cursors'
+   Plugin 'liuchengxu/eleline.vim'
    " 你的所有插件需要在下面这行之前
    call vundle#end()            " 必须
    filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
@@ -112,11 +114,11 @@ endif
 "   vim启动时自动打开NERDTree
 "autocmd vimenter * NERDTree
 " 配置快捷键映射： Ctrl+n 执行 :NERDTreeToggle
-map <C-n> :NERDTreeToggle<CR>
+map <C-h> :NERDTreeToggle<CR>
 " 当只剩下一个窗口并且是nerdtree插件时，推出vim编辑器
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 水平切割和垂直切割窗口快捷键
-map <C-h> :sp<CR>
+"map <C-h> :sp<CR>
 " 禁止生成临时文件
 set nobackup
 " 自动刷新
@@ -151,7 +153,6 @@ set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)
 ""set foldmethod=manual   " 手动折叠  
 
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "新建.c,.h,.sh,.java文件，自动插入文件头 
@@ -169,12 +170,13 @@ func SetTitle()
         call append(line(".")+5, "\#!/bin/bash") 
      endif
      if &filetype == 'php' 
-        call append(line("*"), "/**") 
-        call append(line("*")+1, " * File Name: ".expand("%")) 
-        call append(line("*")+2, " * Author: songyue") 
-        call append(line("*")+3, " * mail: songyue118@gmail.com") 
-        call append(line("*")+4, " * Created Time: ".strftime("%c")) 
-        call append(line("*")+5, " */") 
+        call append(line("*"), "<?php") 
+        call append(line("*")+1, "/**") 
+        call append(line("*")+2, " * File Name: ".expand("%")) 
+        call append(line("*")+3, " * Author: songyue") 
+        call append(line("*")+4, " * mail: songyue118@gmail.com") 
+        call append(line("*")+5, " * Created Time: ".strftime("%c")) 
+        call append(line("*")+6, " */") 
     else 
         call setline(1, "/*************************************************************************") 
         call append(line("."), "    > File Name: ".expand("%")) 
@@ -196,3 +198,7 @@ func SetTitle()
     "新建文件后，自动定位到文件末尾
     autocmd BufNewFile * normal G
 endfunc 
+
+let g:debuggerMaxDetp = 5
+let g:debuggerPort = 8800
+"let g:eleline_slim = 1
