@@ -153,6 +153,7 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strf
 set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)  
 "set foldenable      " 允许折叠  
 ""set foldmethod=manual   " 手动折叠  
+set foldmethod=indent " 手动折叠  
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
