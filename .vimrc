@@ -154,8 +154,18 @@ set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)
 "set foldenable      " 允许折叠  
 ""set foldmethod=manual   " 手动折叠  
 set foldmethod=indent " 手动折叠  
-set ts=4 "设置tab为4个空格
 
+"set ignorecase " 搜索忽略大小写
+"set noignorecase " 搜索大小写敏感
+set ignorecase smartcase " 智能匹配大小写,如果输入字符包含大写,则搜索结果不包含无大写的内容;输入小写则大小写不敏感
+"   模式                    匹配    
+"   word                word、Word、WORD、WoRd 等。
+"   Word                Word
+"   WORD                WORD
+"   WoRd                WoRd
+"
+"
+"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

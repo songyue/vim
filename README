@@ -57,7 +57,7 @@ VIM代码折叠方式可以用"foldmethod"选项来设置，如: set foldmethod=
     6. marker //用标志折叠
     
 indent 折叠指令
-    az 打开或关闭当前折叠;
+    za 打开或关闭当前折叠;
     zM 关闭所有折叠
     zR 打开所有折叠
 indent方式，vim会自动利用缩进进行折叠，我们可以使用现成的折叠成果．
@@ -214,3 +214,143 @@ vim ctrl+s 就死
 
 =========================
 设置tab缩进为4个空格set tabstop=4
+
+=========================
+大小写转换
+
+1.  单个字符的处理
+    ~：切换光标所在位置的字符的大小写形式，大写转换为小写，小写转换为大写
+    3~：将光标位置开始的3个字母改变其大小写
+
+2. 文本整体的处理
+    gu：切换为小写，gU：切换为大写，剩下的就是对这两个命令的限定（限定行字母和单词）等等。
+
+2.1 整篇文章
+
+无须进入命令行模式，键入：
+
+    ggguG：整篇文章转换为小写，gg：文件头，G：文件尾，gu：切换为小写
+    gggUG：整篇文章切换为大写，gg：文件头，G：文件尾，gU：切换为大写
+
+2.2 只转化某个单词
+    guw、gue
+    gUw、gUe
+    gu5w：转换 5 个单词
+    gU5w
+
+2.3 转换行
+    gU0        ：从光标所在位置到行首，都变为大写
+    gU$        ：从光标所在位置到行尾，都变为大写
+    gUG        ：从光标所在位置到文章最后一个字符，都变为大写
+    gU1G      ：从光标所在位置到文章第一个字符，都变为大写
+
+[https://blog.csdn.net/lanchunhui/article/details/51542211]
+
+
+=========================================
+
+NERDTree 常用快捷键
+打开: o ; 打开不跳转到窗口 go ;支持文件,目录或书签
+O 递归打开选中 结点下的所有目录
+x 合拢选中结点的父目录
+X 递归 合拢选中结点下的所有目录
+t 在新 Tab 中打开选中文件/书签，并跳到新 Tab
+T 在新 Tab 中打开选中文件/书签，但不跳到新 Tab
+i split 一个新窗口打开选中文件，并跳到该窗口
+gi split 一个新窗口打开选中文件，但不跳到该窗口
+s vsplit 一个新窗口打开选中文件，并跳到该窗口
+gs vsplit 一个新 窗口打开选中文件，但不跳到该窗口
+
+//Ctrl + j k h l 当前目录首个 or 末尾文件,根目录首 or 尾文件
+=========================================
+窗口操作
+:sp 水平切割
+:vsp 垂直切割
+:res[ize] N 设置高度,单位行数
+:vertical res N 设置宽度,单位行数
+:res[ize] = 重置窗口大小
+:only 关闭其他窗口
+
+缓冲区 
+:ls[!] [flags]              :ls :buffers 缓冲区列表 
+[flags] 
+    +   修改缓冲区
+    -   不可修改缓冲区
+    =   只读缓冲器
+    a   活跃缓冲区
+    u   未列出的缓冲区 (overrides the "!")
+    h   隐藏缓冲区 hidden buffers
+    x   缓冲区有读错误 buffers with a read error
+    %   当前缓冲区 current buffer
+    #   轮换文件缓冲区 alternate buffer
+可组合使用:
+    h+ 被修改的隐藏缓冲区
+    a+ 被修改的活动缓冲区
+
+切换当前缓冲区文件
+    :b 缓冲区id 
+    :buffer 缓冲区id
+    缓冲区id C-6
+    前后缓冲区文件切换 C-6
+
+关闭缓冲区
+    :[N]bun[load][!]            :bun :bunload 
+    :bun[load][!] [N]   默认关闭当前缓冲区
+
+其他快捷操作:
+    :br[ewind][!] [+cmd] 转到第一个缓冲区
+    :bf[irst] [+cmd] 同上
+    :sbr[ewind] [+cmd] 切割窗口并转到第一个缓冲区
+    :sbf[irst] [+cmd] 同上
+    :bl[ast][!] [+cmd] 最后一个
+    :sbl[ast] [+cmd] 切割窗口并转到最后一个缓冲区
+
++cmd 可用于将光标定位在新打开的文件中,或执行任何其他命令:
+    +          从最后一行开始。
+    +{num}     从第{num}行开始。
+    +/{pat}    从包含{pat}的第一行开始。
+    +{command} 打开新文件后执行{command}。
+               {command}是任何Ex命令。
+转义字符 \
+    :edit  +/The\ book           file                       
+    :edit  +/dir\ dirname\\      file                       
+    :edit  +set\ dir=c:\\\\temp  file       
+请注意最后一样的\,set是命令需要\ 转义空格
+==========================================
+
+
+切换标签页
+
+:tabnew [++opt选项] ［＋cmd］ 文件 建立对指定文件新的tab
+:tabc 关闭当前的 tab
+:tabo 关闭所有其他的 tab
+:tabs 查看所有打开的 tab
+:tabp 前一个 tab
+:tabn 后一个 tab
+标准模式下：
+gT 前一个 tab
+gt 后一个 tab
+
+
+=========================================
+
+搜索:
+
+:set ignorecase 忽略大小写
+:set noignorecase 大小写敏感
+:set ignorecase smartcase 搜索输入包含大写,则大小写敏感
+
+单个模式里的大小写,这将忽略vimrc的配置
+\C 敏感 \c 不敏感
+
+[@see https://blog.csdn.net/liuhhaiffeng/article/details/52587914] 
+
+
+
+
+
+
+=========================================
+
+
+
