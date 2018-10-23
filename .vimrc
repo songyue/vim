@@ -98,6 +98,10 @@ endif
    Plugin 'liuchengxu/eleline.vim'
    " vim debug 插件，支持DBGP的所有语言
    Plugin 'vim-vdebug/vdebug'
+   " 基于 ctags：
+   "Plug 'vim-scripts/TagHighlight'
+   "Plug 'xolox/vim-misc'
+   Plugin 'xolox/vim-easytags'
    " 你的所有插件需要在下面这行之前
    call vundle#end()            " 必须
    filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
