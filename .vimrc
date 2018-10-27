@@ -226,4 +226,6 @@ if !exists('g:vdebug_options')
   let g:vdebug_options = {}
 endif
 let g:vdebug_options.port = 8800 
-
+" 输出debug内容到文件
+":VdebugOpt debug_file ~/vdebug.log
+":VdebugOpt debug_file_level 2
