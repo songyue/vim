@@ -98,10 +98,13 @@ endif
    Plugin 'liuchengxu/eleline.vim'
    " vim debug 插件，支持DBGP的所有语言
    Plugin 'vim-vdebug/vdebug'
+   Plugin 'VimIM'
    " 基于 ctags：
-   Plugin 'vim-scripts/TagHighlight'
-   Plugin 'xolox/vim-misc'
-   Plugin 'xolox/vim-easytags'
+"   Plugin 'vim-scripts/TagHighlight'
+"   Plugin 'xolox/vim-misc'
+"   Plugin 'xolox/vim-easytags'
+  " php语法补全 
+"   Plugin 'shawncplus/phpcomplete.vim'
    " 你的所有插件需要在下面这行之前
    call vundle#end()            " 必须
    filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
@@ -229,3 +232,12 @@ let g:vdebug_options.port = 8800
 " 输出debug内容到文件
 ":VdebugOpt debug_file ~/vdebug.log
 ":VdebugOpt debug_file_level 2
+
+:let g:vimim_cloud = 'google,sogou,baidu,qq'   
+:let g:vimim_map = 'tab_as_gi'   
+" :let g:vimim_mode = 'dynamic'   
+" :let g:vimim_mycloud = 0   
+ :let g:vimim_plugin = '/home/songyue/.vim/bundle'   
+" :let g:vimim_punctuation = 2   
+" :let g:vimim_shuangpin = 0   
+" :let g:vimim_toggle = 'pinyin,google,sogou' 
