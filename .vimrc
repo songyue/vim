@@ -99,12 +99,20 @@ endif
    " vim debug 插件，支持DBGP的所有语言
    Plugin 'vim-vdebug/vdebug'
    Plugin 'VimIM'
+   " 自动刷新文件
+   Plugin 'djoshea/vim-autoread'
+   " ctrl + p 搜索文件
+   Plugin 'ctrlp.vim'
    " 基于 ctags：
 "   Plugin 'vim-scripts/TagHighlight'
 "   Plugin 'xolox/vim-misc'
 "   Plugin 'xolox/vim-easytags'
   " php语法补全 
-"   Plugin 'shawncplus/phpcomplete.vim'
+   Plugin 'shawncplus/phpcomplete.vim'
+   " vim-phpstan php静态检测 
+   Plugin 'phpstan/vim-phpstan'
+   " php 语法检查
+   "Plugin 'phpcheck.vim'
    " 你的所有插件需要在下面这行之前
    call vundle#end()            " 必须
    filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
@@ -241,3 +249,20 @@ let g:vdebug_options.port = 8800
 " :let g:vimim_punctuation = 2   
 " :let g:vimim_shuangpin = 0   
 " :let g:vimim_toggle = 'pinyin,google,sogou' 
+" phpstan 配置分析级别,默认为 2 
+let g:phpstan_analyse_level = 4
+
+
+" ==============
+autocmd BufWritePost *.php call PHPSyntaxCheck()
+
+if !exists('g:PHP_SYNTAX_CHECK_BIN')
+    let g:PHP_SYNTAX_CHECK_BIN = 'php'
+endif
+
+function! PHPSyntaxCheck()
+    let result = system(g:PHP_SYNTAX_CHECK_BIN.' -l -n '.expand('%'))
+    if (stridx(result, 'No syntax errors detected') == -1)
+        echohl WarningMsg | echo result | echohl None
+    endif
+endfunction
