@@ -108,11 +108,10 @@ endif
 "   Plugin 'xolox/vim-misc'
 "   Plugin 'xolox/vim-easytags'
   " php语法补全 
-   Plugin 'shawncplus/phpcomplete.vim'
+   "Plugin 'shawncplus/phpcomplete.vim'
    " vim-phpstan php静态检测 
-   Plugin 'phpstan/vim-phpstan'
-   " php 语法检查
-   "Plugin 'phpcheck.vim'
+   "Plugin 'phpstan/vim-phpstan'
+   Plugin 'jistr/vim-nerdtree-tabs'
    " 你的所有插件需要在下面这行之前
    call vundle#end()            " 必须
    filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
@@ -131,7 +130,9 @@ endif
 "   vim启动时自动打开NERDTree
 "autocmd vimenter * NERDTree
 " 配置快捷键映射： Ctrl+n 执行 :NERDTreeToggle
-map <C-h> :NERDTreeToggle<CR>
+"map <C-h> :NERDTreeToggle<CR>
+" 通过插件实现新开tab时自动同步NERDTree 状态
+map <C-h> :NERDTreeTabsToggle<CR>
 " 当只剩下一个窗口并且是nerdtree插件时，推出vim编辑器
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 水平切割和垂直切割窗口快捷键
