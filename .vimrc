@@ -251,19 +251,30 @@ let g:vdebug_options.port = 8800
 " :let g:vimim_shuangpin = 0   
 " :let g:vimim_toggle = 'pinyin,google,sogou' 
 " phpstan 配置分析级别,默认为 2 
-let g:phpstan_analyse_level = 4
+"let g:phpstan_analyse_level = 4
 
 
 " ==============
-autocmd BufWritePost *.php call PHPSyntaxCheck()
+autocmd BufWritePost *.php exec ":call PHPSyntaxCheck()"
 
 if !exists('g:PHP_SYNTAX_CHECK_BIN')
     let g:PHP_SYNTAX_CHECK_BIN = 'php'
 endif
 
-function! PHPSyntaxCheck()
+fun PHPSyntaxCheck()
     let result = system(g:PHP_SYNTAX_CHECK_BIN.' -l -n '.expand('%'))
     if (stridx(result, 'No syntax errors detected') == -1)
-        echohl WarningMsg | echo result | echohl None
+        echohl WarningMsg | echo result | echohl None 
     endif
-endfunction
+endfun
+
+"  autocmd BufWritePre,FileWritePre *.php   ks|call LastMod()|'s
+"  fun LastMod()
+"    if line("$") > 20
+"      let l = 20
+"    else
+"      let l = line("$")
+"    endif
+"    exe "1," . l . "g/Last modified: /s/Last modified: .*/Last modified: " .
+"    \ strftime("%Y %b %d")
+"  endfun
