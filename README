@@ -23,6 +23,15 @@ fi
 
 ===================
 
+vim的好用之处很多是因为插件，使用一个好的插件管理是必不可少的，我平常使用Vundle.vim进行插件管理 
+vundle 搭建很方便：
+
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+修改 .vimrc
+打开vim在底行模式下输入 BundleInstall
+如果还需要其他插件，可以使用BundleSearch 进行在线查找插件
+
+--------------------- 
 快速对引号或括号等标点内的内容进行选中、删除、复制操作的超级技巧。可以极大的提高编辑效率。
 
 以下命令可以对标点内的内容进行操作。
