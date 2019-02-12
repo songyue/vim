@@ -139,6 +139,12 @@ map <C-h> :NERDTreeTabsToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 水平切割和垂直切割窗口快捷键
 "map <C-h> :sp<CR>
+"<F2>设置是否显示行号
+nnoremap <silent> <F2> :set number!<CR>
+"空格打开关闭折叠
+nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+"禁用鼠标模式
+set mouse=
 " 禁止生成临时文件
 set nobackup
 " 自动刷新
