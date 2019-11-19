@@ -112,6 +112,8 @@ endif
    " vim-phpstan php静态检测 
    "Plugin 'phpstan/vim-phpstan'
    Plugin 'jistr/vim-nerdtree-tabs'
+   " vue语法高亮插件
+   Plugin 'posva/vim-vue'
    " 你的所有插件需要在下面这行之前
    call vundle#end()            " 必须
    filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
