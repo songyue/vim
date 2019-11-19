@@ -284,3 +284,8 @@ endfun
 "    exe "1," . l . "g/Last modified: /s/Last modified: .*/Last modified: " .
 "    \ strftime("%Y %b %d")
 "  endfun
+"
+
+" vue 语法高亮
+au BufRead,BufNewFile *.vue set filetype=html
+
