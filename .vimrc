@@ -49,7 +49,7 @@ else
   set autoindent		" always set autoindenting on
 
 endif " has("autocmd")
-
+syntax enable
 " Add optional packages.
 "
 " The matchit plugin makes the % command work better, but it is not backwards

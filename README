@@ -131,6 +131,7 @@ zE  除去 (Eliminate) 窗口里“所有”的折叠。仅当 'foldmethod' 设�
 
 ============================
 多选,替换
+v选中，ctrl + n  选取增加下一个相同的词
 语法为 
     :[addr]s/源字符串/目的字符串/[option]
 全局替换命令为
@@ -281,6 +282,16 @@ T： 打开一个文件，但是光标依然在NERDTree上，创建的是Tab，�
 i: 水平分割创建文件的窗口，创建的是 buffer
 gi: 水平分割创建文件的窗口，但是光标仍然留在 NERDTree
 s: 垂直分割创建文件的窗口，创建的是 buffer
+
+分割窗口并复制
+-垂直分割
+CTRL-W CTRL-V						
+CTRL-W v						
+
+CTRL-W s						*CTRL-W_s*
+CTRL-W S						*CTRL-W_S*
+CTRL-W CTRL-S						*CTRL-W_CTRL-S*
+
 gs: 和 gi，go 类似
 : 收起当前打开的目录
 X: 收起所有打开的目录
