@@ -49,7 +49,7 @@ else
   set autoindent		" always set autoindenting on
 
 endif " has("autocmd")
-
+syntax enable
 " Add optional packages.
 "
 " The matchit plugin makes the % command work better, but it is not backwards
@@ -286,3 +286,8 @@ endfun
 "    exe "1," . l . "g/Last modified: /s/Last modified: .*/Last modified: " .
 "    \ strftime("%Y %b %d")
 "  endfun
+"
+
+" vue 语法高亮
+au BufRead,BufNewFile *.vue set filetype=html
+
