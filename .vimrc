@@ -291,3 +291,34 @@ endfun
 " vue 语法高亮
 au BufRead,BufNewFile *.vue set filetype=html
 
+" GetFileName 函数
+function! GetFileName()
+    let fname = expand("%")
+    return fname
+endfunction
+
+" vim 执行 sql 
+function! KyoMySQLCmdView()                                                     
+    let file = GetFileName()
+    silent exec ':w'                                                            
+                                                                                
+    if bufwinnr(2) == -1                                                        
+        " silent exec 'botright 15 split  -MySQL-'                              
+        silent exec 'botright split  -MySQL-'                                   
+    elseif winnr() == 1                                                         
+        silent exec 'wincmd w'                                                  
+    endif                                                                       
+    setlocal modifiable                                                         
+    silent exec 'normal ggVGx'                                                  
+    silent exec ':r! ksql run $(readlink '.file.')'                             
+    "silent exec ':r! ksql run $(realpath '.file.')'                             
+    setlocal buflisted                                                          
+    setlocal bufhidden=delete                                                   
+    setlocal buftype=nofile                                                     
+    setlocal nomodifiable                                                       
+    setlocal noswapfile                                                         
+    setlocal nowrap                                                             
+    silent exec 'wincmd w'                                                      
+endfunction                                                                     
+" sql 函数映射
+nnoremap ,sq :call KyoMySQLCmdView()<CR><CR>
