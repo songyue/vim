@@ -563,3 +563,10 @@ phpcomplete.vim php自动补全插件
 
 
 =========================================
+NERDTree插件常用命令
+定位当前文件目录 NERDTreeFind
+书签夹,首先切换到NERDTree buffer：
+    打开书签:输入B,切换开关状态，也可以通过.vimrc 配置 let NERDTreeShowBookmarks=1 默认开启书签
+    增加书签:输出“Bookmark {name}” 
+    
+=========================================

@@ -261,6 +261,9 @@ let g:vdebug_options.port = 8800
 " phpstan 配置分析级别,默认为 2 
 "let g:phpstan_analyse_level = 4
 
+"NERDTree 相关配置
+let NERDTreeWinPos ="right"                      "将NERDTree的窗口设置在gvim窗口的左边 left right
+let NERDTreeShowBookmarks=1                     "当打开NERDTree窗口时，自动显示Bookmarks
 
 " ==============
 autocmd BufWritePost *.php exec ":call PHPSyntaxCheck()"
