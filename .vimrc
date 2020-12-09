@@ -103,6 +103,8 @@ endif
    Plugin 'djoshea/vim-autoread'
    " ctrl + p 搜索文件
    Plugin 'ctrlp.vim'
+   " function list
+   Plugin 'functionlist.vim'
    " 基于 ctags：
 "   Plugin 'vim-scripts/TagHighlight'
 "   Plugin 'xolox/vim-misc'
@@ -140,7 +142,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " 水平切割和垂直切割窗口快捷键
 "map <C-h> :sp<CR>
 "<F2>设置是否显示行号
-nnoremap <silent> <F2> :set number!<CR>
+"nnoremap <silent> <F2> :set number!<CR>
+map <F2> : Flisttoggle <CR>
 "空格打开关闭折叠
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 "禁用鼠标模式
@@ -199,15 +202,20 @@ autocmd BufNewFile *.php,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
 func SetTitle() 
     "如果文件类型为.sh文件 
     if &filetype == 'sh' 
-        call setline(1,"\#########################################################################") 
+        call setline(1,"\#!/bin/bash") 
         call append(line("."), "\# File Name: ".expand("%")) 
         call append(line(".")+1, "\# Author: songyue") 
         call append(line(".")+2, "\# mail: songyue118@gmail.com") 
         call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
-        call append(line(".")+4, "\#########################################################################") 
-        call append(line(".")+5, "\#!/bin/bash") 
-     endif
-     if &filetype == 'php' 
+    endif
+    if &filetype == 'c'
+        call append(line("*"), "#include<stdio.h>")
+    endif
+    if &filetype == 'cpp'
+        call append(line("*"), "#include<iostream>")
+        call append(line("*")+1, "using namespace std;")
+    endif
+    if &filetype == 'php' 
         call append(line("*"), "<?php") 
         call append(line("*")+1, "/**") 
         call append(line("*")+2, " * File Name: ".expand("%")) 
@@ -215,23 +223,6 @@ func SetTitle()
         call append(line("*")+4, " * mail: songyue118@gmail.com") 
         call append(line("*")+5, " * Created Time: ".strftime("%c")) 
         call append(line("*")+6, " */") 
-    else 
-        call setline(1, "/*************************************************************************") 
-        call append(line("."), "    > File Name: ".expand("%")) 
-        call append(line(".")+1, "    > Author: songyue") 
-        call append(line(".")+2, "    > Mail: songyue@gmail.com") 
-        call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
-        call append(line(".")+4, " ************************************************************************/") 
-        call append(line(".")+5, "")
-    endif
-    if &filetype == 'cpp'
-        call append(line(".")+6, "#include<iostream>")
-        call append(line(".")+7, "using namespace std;")
-        call append(line(".")+8, "")
-    endif
-    if &filetype == 'c'
-        call append(line(".")+6, "#include<stdio.h>")
-        call append(line(".")+7, "")
     endif
     "新建文件后，自动定位到文件末尾
     autocmd BufNewFile * normal G

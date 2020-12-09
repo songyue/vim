@@ -558,7 +558,7 @@ phpcomplete.vim php自动补全插件
 项目地址 https://github.com/shawncplus/phpcomplete.vim
 
 常用命令:
-
+只读文件保存命令 :w !sudo tee %
 
 =========================================
 " vim debug 插件，支持DBGP的所有语言
