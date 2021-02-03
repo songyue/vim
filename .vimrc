@@ -115,7 +115,22 @@ endif
    "Plugin 'phpstan/vim-phpstan'
    Plugin 'jistr/vim-nerdtree-tabs'
    " vue语法高亮插件
-   Plugin 'posva/vim-vue'
+   "Plugin 'posva/vim-vue'
+   " 括号自动补全
+   "Plugin 'jiangmiao/auto-pairs'
+   " 多行注释
+   Plugin 'scrooloose/nerdcommenter'
+   "=== 别人的配置 ========
+   "Plugin 'Valloric/YouCompleteMe'
+   Plugin 'altercation/vim-colors-solarized'
+   Plugin 'tomasr/molokai'
+   Plugin 'vim-scripts/phd'
+   Plugin 'Lokaltog/vim-powerline'
+   Plugin 'octol/vim-cpp-enhanced-highlight'
+   Plugin 'Raimondi/delimitMate'
+   " php 代码静态分析插件,文档 :help quickfix
+   Plugin 'phpstan/vim-phpstan'
+   "=== 别人的配置 ========
    " 你的所有插件需要在下面这行之前
    call vundle#end()            " 必须
    filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
@@ -180,7 +195,7 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strf
 set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)  
 "set foldenable      " 允许折叠  
 ""set foldmethod=manual   " 手动折叠  
-set foldmethod=indent " 手动折叠  
+set foldmethod=indent " 缩紧折叠
 
 "set ignorecase " 搜索忽略大小写
 "set noignorecase " 搜索大小写敏感
@@ -316,3 +331,13 @@ function! KyoMySQLCmdView()
 endfunction                                                                     
 " sql 函数映射
 nnoremap ,sq :call KyoMySQLCmdView()<CR><CR>
+" 多行注视插件 nerdcommenter 配置选项
+" nerdcommenter默认热键<leader>为'\'，这里将热键设置为','
+" let mapleader=','
+"
+" " 设置注释快捷键
+" map <F4> <leader>ci<CR>
+"
+" phpstan 静态代码分析
+let g:phpstan_analyse_level = 4
+set tags=tags
