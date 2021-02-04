@@ -130,6 +130,11 @@ endif
    Plugin 'Raimondi/delimitMate'
    " php 代码静态分析插件,文档 :help quickfix
    Plugin 'phpstan/vim-phpstan'
+   " php 格式化插件
+   "Plugin 'beanworks/vim-phpfmt'
+   " 本地的Git仓库(例如自己的插件) Plugin 'file:///+本地插件仓库绝对路径'
+   "Plugin 'file:///Users/songyue/work/github/vim-phpfmt'
+   Plugin 'git@github.com:songyue/vim-phpfmt.git'
    "=== 别人的配置 ========
    " 你的所有插件需要在下面这行之前
    call vundle#end()            " 必须
@@ -341,3 +346,13 @@ nnoremap ,sq :call KyoMySQLCmdView()<CR><CR>
 " phpstan 静态代码分析
 let g:phpstan_analyse_level = 4
 set tags=tags
+
+" vim-phpfmt 配置
+" A standard type: PEAR, PHPCS, PSR1, PSR2, PSR12, Squiz and Zend
+let g:phpfmt_standard = 'PSR12'
+" Or your own defined source of standard (absolute or relative path):
+" let g:phpfmt_standard = '/path/to/custom/standard.xml'
+" 关闭保存自动格式化, 手动命令  :PhpFmt 
+let g:phpfmt_autosave = 0
+" ----------------------------------------------
+
