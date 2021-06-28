@@ -49,7 +49,7 @@ else
   set autoindent		" always set autoindenting on
 
 endif " has("autocmd")
-
+syntax enable
 " Add optional packages.
 "
 " The matchit plugin makes the % command work better, but it is not backwards
@@ -103,6 +103,8 @@ endif
    Plugin 'djoshea/vim-autoread'
    " ctrl + p 搜索文件
    Plugin 'ctrlp.vim'
+   " function list
+   Plugin 'functionlist.vim'
    " 基于 ctags：
 "   Plugin 'vim-scripts/TagHighlight'
 "   Plugin 'xolox/vim-misc'
@@ -116,6 +118,25 @@ endif
    "Plugin 'posva/vim-vue'
    " 补全插件
    Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+   " 括号自动补全
+   "Plugin 'jiangmiao/auto-pairs'
+   " 多行注释
+   Plugin 'scrooloose/nerdcommenter'
+   "=== 别人的配置 ========
+   "Plugin 'Valloric/YouCompleteMe'
+   Plugin 'altercation/vim-colors-solarized'
+   Plugin 'tomasr/molokai'
+   Plugin 'vim-scripts/phd'
+   Plugin 'Lokaltog/vim-powerline'
+   Plugin 'octol/vim-cpp-enhanced-highlight'
+   Plugin 'Raimondi/delimitMate'
+   " php 代码静态分析插件,文档 :help quickfix
+   Plugin 'phpstan/vim-phpstan'
+   " php 格式化插件
+   "Plugin 'beanworks/vim-phpfmt'
+   " 本地的Git仓库(例如自己的插件) Plugin 'file:///+本地插件仓库绝对路径'
+   Plugin 'git@github.com:songyue/vim-phpfmt.git'
+   "=== 别人的配置 ========
    " 你的所有插件需要在下面这行之前
    call vundle#end()            " 必须
    filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
@@ -142,7 +163,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " 水平切割和垂直切割窗口快捷键
 "map <C-h> :sp<CR>
 "<F2>设置是否显示行号
-nnoremap <silent> <F2> :set number!<CR>
+"nnoremap <silent> <F2> :set number!<CR>
+map <F2> : Flisttoggle <CR>
 "空格打开关闭折叠
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 "禁用鼠标模式
@@ -179,7 +201,7 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strf
 set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)  
 "set foldenable      " 允许折叠  
 ""set foldmethod=manual   " 手动折叠  
-set foldmethod=indent " 手动折叠  
+set foldmethod=indent " 缩紧折叠
 
 "set ignorecase " 搜索忽略大小写
 "set noignorecase " 搜索大小写敏感
@@ -201,15 +223,20 @@ autocmd BufNewFile *.php,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
 func SetTitle() 
     "如果文件类型为.sh文件 
     if &filetype == 'sh' 
-        call setline(1,"\#########################################################################") 
+        call setline(1,"\#!/bin/bash") 
         call append(line("."), "\# File Name: ".expand("%")) 
         call append(line(".")+1, "\# Author: songyue") 
         call append(line(".")+2, "\# mail: songyue118@gmail.com") 
         call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
-        call append(line(".")+4, "\#########################################################################") 
-        call append(line(".")+5, "\#!/bin/bash") 
-     endif
-     if &filetype == 'php' 
+    endif
+    if &filetype == 'c'
+        call append(line("*"), "#include<stdio.h>")
+    endif
+    if &filetype == 'cpp'
+        call append(line("*"), "#include<iostream>")
+        call append(line("*")+1, "using namespace std;")
+    endif
+    if &filetype == 'php' 
         call append(line("*"), "<?php") 
         call append(line("*")+1, "/**") 
         call append(line("*")+2, " * File Name: ".expand("%")) 
@@ -217,23 +244,6 @@ func SetTitle()
         call append(line("*")+4, " * mail: songyue118@gmail.com") 
         call append(line("*")+5, " * Created Time: ".strftime("%c")) 
         call append(line("*")+6, " */") 
-    else 
-        call setline(1, "/*************************************************************************") 
-        call append(line("."), "    > File Name: ".expand("%")) 
-        call append(line(".")+1, "    > Author: songyue") 
-        call append(line(".")+2, "    > Mail: songyue@gmail.com") 
-        call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
-        call append(line(".")+4, " ************************************************************************/") 
-        call append(line(".")+5, "")
-    endif
-    if &filetype == 'cpp'
-        call append(line(".")+6, "#include<iostream>")
-        call append(line(".")+7, "using namespace std;")
-        call append(line(".")+8, "")
-    endif
-    if &filetype == 'c'
-        call append(line(".")+6, "#include<stdio.h>")
-        call append(line(".")+7, "")
     endif
     "新建文件后，自动定位到文件末尾
     autocmd BufNewFile * normal G
@@ -263,6 +273,9 @@ let g:vdebug_options.port = 8800
 " phpstan 配置分析级别,默认为 2 
 "let g:phpstan_analyse_level = 4
 
+"NERDTree 相关配置
+let NERDTreeWinPos ="right"                      "将NERDTree的窗口设置在gvim窗口的左边 left right
+let NERDTreeShowBookmarks=1                     "当打开NERDTree窗口时，自动显示Bookmarks
 
 " ==============
 autocmd BufWritePost *.php exec ":call PHPSyntaxCheck()"
@@ -293,3 +306,49 @@ endfun
 " vue 语法高亮
 au BufRead,BufNewFile *.vue set filetype=html
 
+" GetFileName 函数
+function! GetFileName()
+    let fname = expand("%")
+    return fname
+endfunction
+
+" vim 执行 sql 
+function! KyoMySQLCmdView()                                                     
+    let file = GetFileName()
+    silent exec ':w'                                                            
+                                                                                
+    if bufwinnr(2) == -1                                                        
+        " silent exec 'botright 15 split  -MySQL-'                              
+        silent exec 'botright split  -MySQL-'                                   
+    elseif winnr() == 1                                                         
+        silent exec 'wincmd w'                                                  
+    endif                                                                       
+    setlocal modifiable                                                         
+    silent exec 'normal ggVGx'                                                  
+    silent exec ':r! ksql run $(readlink '.file.')'                             
+    "silent exec ':r! ksql run $(realpath '.file.')'                             
+    setlocal buflisted                                                          
+    setlocal bufhidden=delete                                                   
+    setlocal buftype=nofile                                                     
+    setlocal nomodifiable                                                       
+    setlocal noswapfile                                                         
+    setlocal nowrap                                                             
+    silent exec 'wincmd w'                                                      
+endfunction                                                                     
+" sql 函数映射
+nnoremap ,sq :call KyoMySQLCmdView()<CR><CR>
+" 多行注视插件 nerdcommenter 配置选项
+" nerdcommenter默认热键<leader>为'\'，这里将热键设置为','
+" let mapleader=','
+"
+" " 设置注释快捷键
+" map <F4> <leader>ci<CR>
+"
+" phpstan 静态代码分析
+let g:phpstan_analyse_level = 4
+set tags=tags
+
+" vim-phpfmt 配置
+" 关闭保存自动格式化, 手动命令  :PhpFmt 
+let g:phpfmt_autosave = 0
+" ----------------------------------------------
