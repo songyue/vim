@@ -60,7 +60,6 @@ if has('syntax') && has('eval')
   packadd! matchit
 endif
 
-
 "   ```vim
    set nocompatible              " 去除VI一致性,必须
    filetype on                  " 必须
@@ -98,7 +97,7 @@ endif
    Plugin 'liuchengxu/eleline.vim'
    " vim debug 插件，支持DBGP的所有语言
    Plugin 'vim-vdebug/vdebug'
-   Plugin 'VimIM'
+   "Plugin 'VimIM'
    " 自动刷新文件
    Plugin 'djoshea/vim-autoread'
    " ctrl + p 搜索文件
@@ -134,6 +133,8 @@ endif
    "Plugin 'beanworks/vim-phpfmt'
    " 本地的Git仓库(例如自己的插件) Plugin 'file:///+本地插件仓库绝对路径'
    Plugin 'git@github.com:songyue/vim-phpfmt.git'
+   "Ack 插件(todo插件)
+   Plugin 'mileszs/ack.vim'
    "=== 别人的配置 ========
    " 你的所有插件需要在下面这行之前
    call vundle#end()            " 必须
@@ -248,19 +249,19 @@ func SetTitle()
 endfunc 
 
 let g:debuggerMaxDetp = 5
-let g:debuggerPort = 8800
+let g:debuggerPort = 8801
 "let g:eleline_slim = 1
 
 " vdebug set xdebug port 8800
 if !exists('g:vdebug_options')
   let g:vdebug_options = {}
 endif
-let g:vdebug_options.port = 8800 
+let g:vdebug_options.port = 8801 
 " 输出debug内容到文件
 ":VdebugOpt debug_file ~/vdebug.log
 ":VdebugOpt debug_file_level 2
 
-:let g:vimim_cloud = 'google,sogou,baidu,qq'   
+"":let g:vimim_cloud = 'google,sogou,baidu,qq'   
 :let g:vimim_map = 'tab_as_gi'   
 " :let g:vimim_mode = 'dynamic'   
 " :let g:vimim_mycloud = 0   
@@ -349,4 +350,27 @@ set tags=tags
 " vim-phpfmt 配置
 " 关闭保存自动格式化, 手动命令  :PhpFmt 
 let g:phpfmt_autosave = 0
+
+"ack
+"<Leader>c进行搜索，同时不自动打开第一个匹配的文件"
+map <Leader>c :Ack!<Space> 
+"调用ag进行搜索
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
+"高亮搜索关键词
+let g:ackhighlight = 1
+"修改快速预览窗口高度为15
+let g:ack_qhandler = "botright copen 15"
+"在QuickFix窗口使用快捷键以后，自动关闭QuickFix窗口
+let g:ack_autoclose = 1
+"使用ack的空白搜索，即不添加任何参数时对光标下的单词进行搜索，默认值为1，表示开启，置0以后使用空白搜索将返回错误信息
+let g:ack_use_cword_for_empty_search = 1
+"部分功能受限，但对于大项目搜索速度较慢时可以尝试开启
+"let g:ack_use_dispatch = 1
+
+"command todo Ack! 'todo|TODO\|FIXME'
+"command todome Ack! 'todo:sy'
+"command Todo Ack! 'TODO|FIXME|CHANGED|BUG|HACK'
+"command Debug Ack! 'NOTE|INFO|IDEA'
 " ----------------------------------------------
