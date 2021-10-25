@@ -115,6 +115,8 @@ endif
    Plugin 'jistr/vim-nerdtree-tabs'
    " vue语法高亮插件
    "Plugin 'posva/vim-vue'
+   " 补全插件
+   Plugin 'neoclide/coc.nvim', {'branch': 'release'}
    " 括号自动补全
    "Plugin 'jiangmiao/auto-pairs'
    " 多行注释
