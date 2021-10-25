@@ -96,7 +96,7 @@ endif
    Plugin 'terryma/vim-multiple-cursors'
    Plugin 'liuchengxu/eleline.vim'
    " vim debug 插件，支持DBGP的所有语言
-   Plugin 'vim-vdebug/vdebug'
+   "Plugin 'vim-vdebug/vdebug'
    "Plugin 'VimIM'
    " 自动刷新文件
    Plugin 'djoshea/vim-autoread'
@@ -135,6 +135,11 @@ endif
    Plugin 'git@github.com:songyue/vim-phpfmt.git'
    "Ack 插件(todo插件)
    Plugin 'mileszs/ack.vim'
+   " go 主要插件
+   Plugin 'fatih/vim-go',{ 'tag': '*' }
+   " go 中的代码追踪，输入 gd 就可以自动跳转
+   Plugin 'dgryski/vim-godef'
+
    "=== 别人的配置 ========
    " 你的所有插件需要在下面这行之前
    call vundle#end()            " 必须
